@@ -1,0 +1,202 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+    <Schema Namespace="CustomerPurchaseModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="Customer">
+          <Key>
+            <PropertyRef Name="CustomerID" />
+          </Key>
+          <Property Name="CustomerID" Type="int" Nullable="false" />
+          <Property Name="CustomerName" Type="varchar" MaxLength="50" />
+        </EntityType>
+        <EntityType Name="Hardware1">
+          <Key>
+            <PropertyRef Name="HardwareID" />
+          </Key>
+          <Property Name="HardwareID" Type="int" Nullable="false" />
+          <Property Name="CustomerID" Type="int" Nullable="false" />
+          <Property Name="Hardware" Type="varchar" MaxLength="50" />
+        </EntityType>
+        <EntityType Name="Software">
+          <Key>
+            <PropertyRef Name="SoftwaeID" />
+          </Key>
+          <Property Name="SoftwaeID" Type="int" Nullable="false" />
+          <Property Name="CustomerID" Type="int" />
+          <Property Name="Software" Type="varchar" MaxLength="50" />
+        </EntityType>
+        <EntityType Name="sysdiagrams">
+          <Key>
+            <PropertyRef Name="diagram_id" />
+          </Key>
+          <Property Name="name" Type="nvarchar" MaxLength="128" Nullable="false" />
+          <Property Name="principal_id" Type="int" Nullable="false" />
+          <Property Name="diagram_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="version" Type="int" />
+          <Property Name="definition" Type="varbinary(max)" />
+        </EntityType>
+        <Association Name="FK_Hardware1_Customer">
+          <End Role="Customer" Type="Self.Customer" Multiplicity="1" />
+          <End Role="Hardware1" Type="Self.Hardware1" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Customer">
+              <PropertyRef Name="CustomerID" />
+            </Principal>
+            <Dependent Role="Hardware1">
+              <PropertyRef Name="CustomerID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Software_Customer">
+          <End Role="Customer" Type="Self.Customer" Multiplicity="0..1" />
+          <End Role="Software" Type="Self.Software" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Customer">
+              <PropertyRef Name="CustomerID" />
+            </Principal>
+            <Dependent Role="Software">
+              <PropertyRef Name="CustomerID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="CustomerPurchaseModelStoreContainer">
+          <EntitySet Name="Customer" EntityType="Self.Customer" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Hardware1" EntityType="Self.Hardware1" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Software" EntityType="Self.Software" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagrams" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK_Hardware1_Customer" Association="Self.FK_Hardware1_Customer">
+            <End Role="Customer" EntitySet="Customer" />
+            <End Role="Hardware1" EntitySet="Hardware1" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Software_Customer" Association="Self.FK_Software_Customer">
+            <End Role="Customer" EntitySet="Customer" />
+            <End Role="Software" EntitySet="Software" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema></edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="CustomerPurchaseModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="Customer">
+          <Key>
+            <PropertyRef Name="CustomerID" />
+          </Key>
+          <Property Name="CustomerID" Type="Int32" Nullable="false" />
+          <Property Name="CustomerName" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="Softwares" Relationship="Self.FK_Software_Customer" FromRole="Customer" ToRole="Software" />
+          <NavigationProperty Name="Hardware1" Relationship="CustomerPurchaseModel.FK_Hardware1_Customer" FromRole="Customer" ToRole="Hardware1" />
+        </EntityType>
+        <EntityType Name="Software">
+          <Key>
+            <PropertyRef Name="SoftwaeID" />
+          </Key>
+          <Property Name="SoftwaeID" Type="Int32" Nullable="false" />
+          <Property Name="CustomerID" Type="Int32" />
+          <Property Name="Software1" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="Customer" Relationship="Self.FK_Software_Customer" FromRole="Software" ToRole="Customer" />
+        </EntityType>
+        <Association Name="FK_Software_Customer">
+          <End Role="Customer" Type="Self.Customer" Multiplicity="0..1" />
+          <End Role="Software" Type="Self.Software" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Customer">
+              <PropertyRef Name="CustomerID" />
+            </Principal>
+            <Dependent Role="Software">
+              <PropertyRef Name="CustomerID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="CustomerPurchaseEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="Customers" EntityType="Self.Customer" />
+          <EntitySet Name="Softwares" EntityType="Self.Software" />
+          <AssociationSet Name="FK_Software_Customer" Association="Self.FK_Software_Customer">
+            <End Role="Customer" EntitySet="Customers" />
+            <End Role="Software" EntitySet="Softwares" />
+          </AssociationSet>
+          <EntitySet Name="Hardware1" EntityType="CustomerPurchaseModel.Hardware1" />
+          <AssociationSet Name="FK_Hardware1_Customer" Association="CustomerPurchaseModel.FK_Hardware1_Customer">
+            <End Role="Customer" EntitySet="Customers" />
+            <End Role="Hardware1" EntitySet="Hardware1" />
+          </AssociationSet>
+        </EntityContainer>
+        <EntityType Name="Hardware1">
+          <Key>
+            <PropertyRef Name="HardwareID" />
+          </Key>
+          <Property Name="HardwareID" Type="Int32" Nullable="false" />
+          <Property Name="CustomerID" Type="Int32" Nullable="false" />
+          <Property Name="Hardware" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="Customer" Relationship="CustomerPurchaseModel.FK_Hardware1_Customer" FromRole="Hardware1" ToRole="Customer" />
+        </EntityType>
+        <Association Name="FK_Hardware1_Customer">
+          <End Type="CustomerPurchaseModel.Customer" Role="Customer" Multiplicity="1" />
+          <End Type="CustomerPurchaseModel.Hardware1" Role="Hardware1" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Customer">
+              <PropertyRef Name="CustomerID" />
+            </Principal>
+            <Dependent Role="Hardware1">
+              <PropertyRef Name="CustomerID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="CustomerPurchaseModelStoreContainer" CdmEntityContainer="CustomerPurchaseEntities">
+          <EntitySetMapping Name="Customers">
+            <EntityTypeMapping TypeName="CustomerPurchaseModel.Customer">
+              <MappingFragment StoreEntitySet="Customer">
+                <ScalarProperty Name="CustomerID" ColumnName="CustomerID" />
+                <ScalarProperty Name="CustomerName" ColumnName="CustomerName" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Softwares">
+            <EntityTypeMapping TypeName="CustomerPurchaseModel.Software">
+              <MappingFragment StoreEntitySet="Software">
+                <ScalarProperty Name="SoftwaeID" ColumnName="SoftwaeID" />
+                <ScalarProperty Name="CustomerID" ColumnName="CustomerID" />
+                <ScalarProperty Name="Software1" ColumnName="Software" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Hardware1">
+            <EntityTypeMapping TypeName="CustomerPurchaseModel.Hardware1">
+              <MappingFragment StoreEntitySet="Hardware1">
+                <ScalarProperty Name="Hardware" ColumnName="Hardware" />
+                <ScalarProperty Name="CustomerID" ColumnName="CustomerID" />
+                <ScalarProperty Name="HardwareID" ColumnName="HardwareID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="true" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>

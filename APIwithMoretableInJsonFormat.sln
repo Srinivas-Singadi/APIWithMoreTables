@@ -1,0 +1,31 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 15
+VisualStudioVersion = 15.0.28307.271
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CircularReffrenceError", "CircularReffrenceError\CircularReffrenceError.csproj", "{167DC303-0DDC-4EC9-B5A2-C98C6236EFA1}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WebAPI", "WebAPI\WebAPI.csproj", "{B8897054-736A-4586-8B95-61B1A90729DF}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{167DC303-0DDC-4EC9-B5A2-C98C6236EFA1}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{167DC303-0DDC-4EC9-B5A2-C98C6236EFA1}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{167DC303-0DDC-4EC9-B5A2-C98C6236EFA1}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{167DC303-0DDC-4EC9-B5A2-C98C6236EFA1}.Release|Any CPU.Build.0 = Release|Any CPU
+		{B8897054-736A-4586-8B95-61B1A90729DF}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{B8897054-736A-4586-8B95-61B1A90729DF}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{B8897054-736A-4586-8B95-61B1A90729DF}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{B8897054-736A-4586-8B95-61B1A90729DF}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {FDE663F2-37FE-4804-9DC8-9336BC8DFC4B}
+	EndGlobalSection
+EndGlobal
