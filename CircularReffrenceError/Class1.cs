@@ -8,5 +8,11 @@ namespace CircularReffrenceError
 {
     public class Class1
     {
+        // this is jsut to chcek the addition Information 
+        
+        
+        
+        
+        //jsust adding one more line  just to test : !!!
     }
 }
